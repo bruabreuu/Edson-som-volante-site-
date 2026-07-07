@@ -19,8 +19,8 @@ Landing page estática pronta para deploy no Cloudflare Pages.
 No arquivo `index.html`:
 
 - `GTM-XXXXXXX`: substitua pelo ID real do Google Tag Manager
-- `https://www.seudominio.com.br/`: substitua pelo domínio final da landing page
-- `https://www.seudominio.com.br/assets/edson-social-frota.jpg`: mantenha o caminho, mas troque o domínio pelo domínio final
+- `https://edsonsomvolante.com.br/`: domínio final configurado na landing page
+- `https://edsonsomvolante.com.br/assets/edson-social-frota.jpg`: imagem social configurada com o domínio final
 
 No Google Tag Manager:
 
@@ -30,11 +30,11 @@ No Google Tag Manager:
 
 No arquivo `robots.txt`:
 
-- `https://www.seudominio.com.br/sitemap.xml`: substitua pelo domínio final
+- `https://edsonsomvolante.com.br/sitemap.xml`: sitemap configurado com o domínio final
 
 No arquivo `sitemap.xml`:
 
-- `https://www.seudominio.com.br/`: substitua pelo domínio final
+- `https://edsonsomvolante.com.br/`: domínio final configurado no sitemap
 
 ## Google Tag Manager, GA4 e Meta Pixel
 
@@ -75,5 +75,5 @@ Parâmetros enviados:
 - O hero usa preload da imagem principal
 - O CSS foi minificado em `styles.min.css`
 - O JavaScript foi mantido legível para evitar quebra de eventos sem um minificador dedicado
-- O sitemap e os metadados usam domínio placeholder até o domínio final ser definido
+- O sitemap e os metadados usam o domínio final `https://edsonsomvolante.com.br`
 - O Cloudflare faz compressão automática de arquivos estáticos quando habilitado no painel
