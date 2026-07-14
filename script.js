@@ -8,6 +8,7 @@ const finalSection = document.querySelector(".final-cta");
 const revealItems = document.querySelectorAll(".reveal");
 const quoteForm = document.querySelector("[data-form]");
 const trackedItems = document.querySelectorAll("[data-track]");
+const reviewsCarousel = document.querySelector("[data-reviews-carousel]");
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -69,6 +70,40 @@ trackedItems.forEach((item) => {
     trackEvent(item.dataset.track, item.dataset.trackLabel);
   });
 });
+
+if (reviewsCarousel && !prefersReducedMotion) {
+  const track = reviewsCarousel.querySelector(".reviews-track");
+  const cards = Array.from(reviewsCarousel.querySelectorAll(".review-card"));
+  let activeReview = 0;
+  let visibleCards = window.innerWidth > 980 ? 2 : 1;
+
+  const updateReviews = () => {
+    if (!track || cards.length === 0) return;
+
+    visibleCards = window.innerWidth > 980 ? 2 : 1;
+    const maxIndex = Math.max(0, cards.length - visibleCards);
+    activeReview = Math.min(activeReview, maxIndex);
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    track.style.transform = `translateX(-${activeReview * (cardWidth + gap)}px)`;
+  };
+
+  const nextReview = () => {
+    const maxIndex = Math.max(0, cards.length - visibleCards);
+    activeReview = activeReview >= maxIndex ? 0 : activeReview + 1;
+    updateReviews();
+  };
+
+  let reviewTimer = window.setInterval(nextReview, 5000);
+
+  reviewsCarousel.addEventListener("mouseenter", () => window.clearInterval(reviewTimer));
+  reviewsCarousel.addEventListener("mouseleave", () => {
+    reviewTimer = window.setInterval(nextReview, 5000);
+  });
+
+  window.addEventListener("resize", updateReviews);
+  updateReviews();
+}
 
 if (quoteForm) {
   quoteForm.addEventListener("submit", (event) => {
